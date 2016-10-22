@@ -36,14 +36,14 @@ end
 
 -- build the nn
 net = nn.Sequential()
-net:add(nn.SpatialConvolution(3,6,5,5)) --change these to make the net heavier
+net:add(nn.SpatialConvolution(3,200,5,5)) --change these to make the net heavier
 net:add(nn.ReLU())
 net:add(nn.SpatialMaxPooling(2,2,2,2))
-net:add(nn.SpatialConvolution(6,16,5,5)) -- change these params to make the net heavier
+net:add(nn.SpatialConvolution(200,1000,5,5)) -- change these params to make the net heavier
 net:add(nn.ReLU())
 net:add(nn.SpatialMaxPooling(2,2,2,2))
-net:add(nn.View(16*5*5))
-net:add(nn.Linear(16*5*5,120))
+net:add(nn.View(1000*5*5))
+net:add(nn.Linear(1000*5*5,120))
 net:add(nn.ReLU())
 net:add(nn.Linear(120,84))
 net:add(nn.ReLU())
@@ -87,7 +87,7 @@ class_performance = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 for i = 1, 10000 do
     local groundtruth = testset.label[i]
     local prediction = net:forward(testset.data[i])
-    local confidences, indices = torch.sort(prediction, true)  -- true means sort in descending order
+    local confidences, indices = torch.sort(prediction, true)
     if groundtruth == indices[1] then
         class_performance[groundtruth] = class_performance[groundtruth] + 1
     end
