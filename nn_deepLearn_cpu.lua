@@ -36,10 +36,10 @@ end
 
 -- build the nn
 net = nn.Sequential()
-net:add(nn.SpatialConvolution(3,6,5,5))
+net:add(nn.SpatialConvolution(3,6,5,5)) --change these to make the net heavier
 net:add(nn.ReLU())
 net:add(nn.SpatialMaxPooling(2,2,2,2))
-net:add(nn.SpatialConvolution(6,16,5,5))
+net:add(nn.SpatialConvolution(6,16,5,5)) -- change these params to make the net heavier
 net:add(nn.ReLU())
 net:add(nn.SpatialMaxPooling(2,2,2,2))
 net:add(nn.View(16*5*5))
